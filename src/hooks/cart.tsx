@@ -48,6 +48,12 @@ const CartProvider: React.FC = ({ children }) => {
         if (prod.id === id) return { ...prod, quantity: prod.quantity + 1 };
         return prod;
       });
+
+      await AsyncStorage.setItem(
+        '@GoMarketplace:products',
+        JSON.stringify(products),
+      );
+
       setProducts(updatedProducts);
     },
     [products],
@@ -59,6 +65,12 @@ const CartProvider: React.FC = ({ children }) => {
         if (prod.id === id) return { ...prod, quantity: prod.quantity - 1 };
         return prod;
       });
+
+      await AsyncStorage.setItem(
+        '@GoMarketplace:products',
+        JSON.stringify(products),
+      );
+
       setProducts(updatedProducts);
     },
     [products],
@@ -72,6 +84,10 @@ const CartProvider: React.FC = ({ children }) => {
         increment(product.id);
       } else {
         setProducts([...products, { ...product, quantity: 1 }]);
+        await AsyncStorage.setItem(
+          '@GoMarketplace:products',
+          JSON.stringify(products),
+        );
       }
     },
     [products, increment],
